@@ -27,6 +27,22 @@ import img25 from "../assets/25.jpeg";
 import img26 from "../assets/26.jpeg";
 import img27 from "../assets/27.jpeg";
 import img28 from "../assets/28.jpeg";
+import img29 from "../assets/29.png";
+import img30 from "../assets/30.png";
+import img31 from "../assets/31.png";
+import img32 from "../assets/32.jpg";
+import img33 from "../assets/33.jpg";
+import img34 from "../assets/34.jpg";
+import img35 from "../assets/35.jpg";
+import img36 from "../assets/36.jpg";
+import img37 from "../assets/37.jpg";
+import img38 from "../assets/38.jpg";
+import img39 from "../assets/39.jpg";
+import img40 from "../assets/40.jpg";
+import img41 from "../assets/41.jpg";
+import img42 from "../assets/42.jpg";
+import img43 from "../assets/43.png";
+import img44 from "../assets/44.png";
 
 const row1 = [
   { id: 1, logo: img1, industry: "WELLNESS" },
@@ -43,6 +59,14 @@ const row1 = [
   { id: 12, logo: img12, industry: "LOGISTICS" },
   { id: 13, logo: img13, industry: "MANUFACTURING" },
   { id: 14, logo: img14, industry: "MEDIA" },
+  { id: 29, logo: img29, industry: "PARTNER" },
+  { id: 30, logo: img30, industry: "AGENCY" },
+  { id: 31, logo: img31, industry: "TECH" },
+  { id: 32, logo: img32, industry: "ECOMMERCE" },
+  { id: 33, logo: img33, industry: "STARTUP" },
+  { id: 34, logo: img34, industry: "FINTECH" },
+  { id: 35, logo: img35, industry: "CONSULTING" },
+  { id: 36, logo: img36, industry: "ENTERPRISE" },
 ];
 
 const row2 = [
@@ -60,6 +84,14 @@ const row2 = [
   { id: 26, logo: img26, industry: "LOGISTICS" },
   { id: 27, logo: img27, industry: "MANUFACTURING" },
   { id: 28, logo: img28, industry: "MEDIA" },
+  { id: 37, logo: img37, industry: "PARTNER" },
+  { id: 38, logo: img38, industry: "AGENCY" },
+  { id: 39, logo: img39, industry: "TECH" },
+  { id: 40, logo: img40, industry: "ECOMMERCE" },
+  { id: 41, logo: img41, industry: "STARTUP" },
+  { id: 42, logo: img42, industry: "FINTECH" },
+  { id: 43, logo: img43, industry: "CONSULTING" },
+  { id: 44, logo: img44, industry: "ENTERPRISE" },
 ];
 
 const MarqueeItem = ({ logo, industry }: { logo: string, industry: string }) => (
