@@ -1,42 +1,177 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { useEffect, useState } from "react";
+import {
+  TrendingUp,
+  Target,
+  Zap,
+  Rocket,
+  Sparkles,
+  Activity,
+} from "lucide-react";
 
+/* -------- animated counter helper -------- */
+const AnimatedCounter = ({
+  from = 0,
+  to,
+  prefix = "",
+  suffix = "",
+  duration = 2,
+  decimals = 0,
+}: {
+  from?: number;
+  to: number;
+  prefix?: string;
+  suffix?: string;
+  duration?: number;
+  decimals?: number;
+}) => {
+  const count = useMotionValue(from);
+  const rounded = useTransform(count, (v) =>
+    decimals ? v.toFixed(decimals) : Math.round(v).toLocaleString("en-IN")
+  );
+  const [display, setDisplay] = useState<string>(String(from));
+
+  useEffect(() => {
+    const controls = animate(count, to, {
+      duration,
+      ease: [0.22, 1, 0.36, 1],
+    });
+    const unsub = rounded.on("change", (v) => setDisplay(v as string));
+    return () => {
+      controls.stop();
+      unsub();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [to]);
+
+  return (
+    <span>
+      {prefix}
+      {display}
+      {suffix}
+    </span>
+  );
+};
+
+/* -------- Meta Business Partner Logo (SVG - infinity mark) -------- */
+const MetaLogo = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 36 24" fill="none">
+    <defs>
+      <linearGradient id="metaGrad" x1="0" y1="12" x2="36" y2="12" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stopColor="#0064E1" />
+        <stop offset="50%" stopColor="#0082FB" />
+        <stop offset="100%" stopColor="#00C6FF" />
+      </linearGradient>
+    </defs>
+    {/* Meta infinity mark - two overlapping loops */}
+    <path
+      d="M9 4C4.03 4 1 8.03 1 12s3.03 8 8 8c3.5 0 6-2 8.5-5.5l1.7-2.4C21 9 22.7 6.5 26 6.5c2.8 0 4.5 2.5 4.5 5.5s-1.7 5.5-4.5 5.5c-1.7 0-3-1.2-4.5-3.5l-1-1.6-2.4 3.5C15.4 18.7 12.7 20 9 20c-4.4 0-8-3.6-8-8s3.6-8 8-8c3.5 0 6.2 1.8 8.4 4.5l1.6 2.1 2.5-3.6C23.9 4.4 25.8 3 28.5 3 31.5 3 34 5.5 34 9.5S31.5 16 28.5 16c-1.7 0-3-.8-4.3-2.8l-1.4-2.1 2.6-3.8c1.1-1.5 2.1-2.3 3.6-2.3 2 0 3.5 1.7 3.5 4s-1.5 4-3.5 4c-.9 0-1.8-.4-2.7-1.7l-.8-1.1L23.9 12l.9 1.2c1 1.4 2.1 2 3.5 2 2.6 0 4.7-2.3 4.7-5.7s-2.1-5.7-4.7-5.7c-2.1 0-3.7 1.2-5.5 3.7l-2 2.9-1.5-2C17 5.7 13.7 4 9 4z"
+      fill="url(#metaGrad)"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+
+/* -------- Hero -------- */
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden hero-mesh">
-      {/* Background Glow Blobs */}
-      <div className="absolute top-1/4 -left-20 w-96 h-96 rounded-full bg-[#EB392F]/10 blur-3xl animate-blob pointer-events-none" />
-      <div className="absolute top-1/3 -right-20 w-[30rem] h-[30rem] rounded-full bg-[#FF8000]/10 blur-3xl animate-pulseGlow pointer-events-none" />
+    <section className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden hero-mesh">
+      {/* Background Micro-Graphics */}
       <div className="absolute inset-0 premium-grid-bg opacity-40 pointer-events-none" />
+      {/* Ambient blobs */}
+      <div className="absolute top-1/4 -left-24 w-96 h-96 rounded-full bg-[#EB392F]/10 blur-3xl animate-blob pointer-events-none" />
+      <div className="absolute top-1/3 -right-24 w-[30rem] h-[30rem] rounded-full bg-[#FF8000]/10 blur-3xl animate-pulseGlow pointer-events-none" />
+      <div className="absolute bottom-10 left-1/3 w-72 h-72 rounded-full bg-[#FFB84D]/10 blur-3xl pointer-events-none" />
+
+      {/* Floating micro-decorations (SVG) */}
+      <svg
+        className="absolute top-24 right-[8%] w-24 h-24 text-[#EB392F]/20 pointer-events-none animate-float-slow"
+        viewBox="0 0 100 100"
+      >
+        <circle cx="50" cy="50" r="48" stroke="currentColor" strokeWidth="1" fill="none" strokeDasharray="4 6" />
+      </svg>
+      <svg
+        className="absolute bottom-32 left-[5%] w-16 h-16 text-[#FF8000]/25 pointer-events-none animate-float-med"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+      >
+        <path strokeWidth="1.5" strokeLinecap="round" d="M12 2v20M2 12h20" />
+      </svg>
+
+      {/* Diagonal stars micro-graphics */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[
+          { top: "18%", left: "42%", size: 3, delay: "0s" },
+          { top: "62%", left: "48%", size: 2, delay: "0.6s" },
+          { top: "34%", left: "88%", size: 4, delay: "0.3s" },
+          { top: "78%", left: "8%", size: 3, delay: "1.1s" },
+          { top: "12%", left: "68%", size: 2, delay: "0.8s" },
+        ].map((s, i) => (
+          <span
+            key={i}
+            className="absolute rounded-full bg-[#EB392F] animate-twinkle"
+            style={{
+              top: s.top,
+              left: s.left,
+              width: `${s.size}px`,
+              height: `${s.size}px`,
+              animationDelay: s.delay,
+            }}
+          />
+        ))}
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Main Editorial Content */}
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          {/* Left Editorial Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             className="lg:col-span-7"
           >
-            {/* Section Eyebrows - Digital + Performance Marketing */}
-            <div className="flex flex-wrap items-center gap-2 mb-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-slate-200 shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-[#EB392F] animate-ping" />
-                <span className="w-1.5 h-1.5 rounded-full bg-[#EB392F]" />
-                <span className="text-[11px] font-bold uppercase tracking-[0.32em] text-[#EB392F]">
-                  Digital Marketing Agency
+            {/* Premium single badge - Performance Marketing Agency */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.6 }}
+              className="mb-7"
+            >
+              <div
+                className="inline-flex items-center gap-3 pl-2 pr-5 py-2 rounded-full shadow-lg backdrop-blur-md border"
+                style={{
+                  background:
+                    "linear-gradient(90deg, rgba(19,27,42,0.95) 0%, rgba(42,20,26,0.95) 100%)",
+                  borderColor: "rgba(255,184,77,0.25)",
+                }}
+              >
+                <span
+                  className="relative w-7 h-7 rounded-full flex items-center justify-center"
+                  style={{ background: "linear-gradient(135deg,#FFB84D,#FF8000,#EB392F)" }}
+                >
+                  <span className="absolute inset-0 rounded-full animate-ping opacity-40"
+                        style={{ background: "linear-gradient(135deg,#FFB84D,#EB392F)" }} />
+                  <Sparkles className="w-3.5 h-3.5 text-white relative" />
                 </span>
+                <div className="flex items-center gap-2">
+                  <span className="w-1 h-1 rounded-full bg-white/40" />
+                  <span
+                    className="text-[11px] font-extrabold uppercase tracking-[0.35em]"
+                    style={{
+                      background: "linear-gradient(90deg,#FFB84D,#FF8000,#EB392F)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
+                    Performance Marketing Agency
+                  </span>
+                  <span className="w-1 h-1 rounded-full bg-white/40" />
+                </div>
               </div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-white shadow-md"
-                   style={{ background: "linear-gradient(90deg,#131B2A,#2a1a2a)" }}>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FF8000]" />
-                <span className="text-[11px] font-bold uppercase tracking-[0.32em]"
-                      style={{ background: "linear-gradient(90deg,#FFB84D,#EB392F)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                  Performance Marketing Agency
-                </span>
-              </div>
-            </div>
+            </motion.div>
 
-            {/* 3-Line Editorial Split Headline */}
+            {/* Headline */}
             <h1 className="flex flex-col gap-1 mb-6">
               <span className="text-[clamp(2.4rem,5.5vw,4.6rem)] font-heading font-extrabold text-[#131B2A] tracking-tight leading-[1.05]">
                 Transforming
@@ -54,15 +189,17 @@ const Hero = () => {
               Backed by <strong className="text-[#131B2A] font-bold">₹15 Cr+</strong> in managed ad spend, we bridge the gap between creative vision and measurable ROI. V Agency engineers campaigns that don't just look expensive—they scale revenue.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 mb-8">
+            <div className="flex flex-wrap items-center gap-4 mb-7">
               <a
                 href="#services"
                 className="group pl-7 pr-3 py-3.5 rounded-full text-white font-bold text-sm tracking-wider uppercase inline-flex items-center gap-4 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
                 style={{ background: "linear-gradient(90deg,#131B2A 0%,#2a1a2a 100%)" }}
               >
                 Our Services
-                <span className="w-8 h-8 rounded-full flex items-center justify-center text-white transition-transform duration-300 group-hover:rotate-45"
-                      style={{ background: "linear-gradient(135deg,#FF8000,#EB392F)" }}>
+                <span
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-white transition-transform duration-300 group-hover:rotate-45"
+                  style={{ background: "linear-gradient(135deg,#FF8000,#EB392F)" }}
+                >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
@@ -77,42 +214,55 @@ const Hero = () => {
               </a>
             </div>
 
-            {/* Partner Badges */}
+            {/* Premium Partner Badges */}
             <div className="flex flex-wrap items-center gap-3 mb-8">
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-white border border-slate-200 shadow-sm">
-                <span className="w-7 h-7 rounded-full flex items-center justify-center text-white"
-                      style={{ background: "linear-gradient(135deg,#25D366,#128C7E)" }}>
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12 22a10 10 0 100-20 10 10 0 000 20z" />
-                  </svg>
-                </span>
-                <div className="leading-tight">
-                  <div className="text-[9px] uppercase tracking-widest font-bold text-slate-400">Official Partner</div>
-                  <div className="text-xs font-extrabold text-[#131B2A]">WhatsApp Business</div>
+              {/* Meta Business Partner */}
+              <div className="inline-flex items-center gap-3 pl-2 pr-4 py-2 rounded-2xl bg-white border border-slate-200 shadow-md hover:shadow-lg transition-all">
+                <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center shadow-inner">
+                  <MetaLogo className="w-6 h-6" />
                 </div>
-                <svg className="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
+                <div className="leading-tight pr-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[8px] uppercase tracking-[0.18em] font-extrabold text-slate-400">
+                      Meta
+                    </span>
+                    <svg className="w-3 h-3 text-[#0866FF]" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div className="text-[13px] font-extrabold text-[#131B2A] leading-none mt-0.5">
+                    Business Partner
+                  </div>
+                </div>
               </div>
 
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-white border border-slate-200 shadow-sm">
-                <span className="w-7 h-7 rounded-full flex items-center justify-center text-white"
-                      style={{ background: "linear-gradient(135deg,#0866FF,#1877F2)" }}>
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95 0-5.52-4.48-10-10-10z" />
+              {/* WhatsApp Business API Partner */}
+              <div className="inline-flex items-center gap-3 pl-2 pr-4 py-2 rounded-2xl bg-white border border-slate-200 shadow-md hover:shadow-lg transition-all">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center shadow-inner"
+                  style={{ background: "linear-gradient(135deg,#25D366,#128C7E)" }}
+                >
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
                   </svg>
-                </span>
-                <div className="leading-tight">
-                  <div className="text-[9px] uppercase tracking-widest font-bold text-slate-400">Official Partner</div>
-                  <div className="text-xs font-extrabold text-[#131B2A]">Meta Business</div>
                 </div>
-                <svg className="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
+                <div className="leading-tight pr-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[8px] uppercase tracking-[0.18em] font-extrabold text-slate-400">
+                      WhatsApp
+                    </span>
+                    <svg className="w-3 h-3 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div className="text-[13px] font-extrabold text-[#131B2A] leading-none mt-0.5">
+                    Business API Partner
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Quick Metrics Bar */}
+            {/* Metrics */}
             <div className="grid grid-cols-3 gap-3 p-4 rounded-3xl bg-white/70 backdrop-blur-md border border-slate-200/80 shadow-sm max-w-lg">
               <div className="text-center p-2">
                 <div className="big-num text-2xl sm:text-3xl text-[#131B2A]">₹15Cr+</div>
@@ -129,72 +279,14 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Right Image Showcase */}
+          {/* Right - Premium Animated Dashboard */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="lg:col-span-5 relative"
           >
-            <div className="relative z-10 p-5 sm:p-6 rounded-[32px] glass-premium border border-white/80 shadow-2xl">
-              {/* Premium Hero image */}
-              <div className="relative overflow-hidden rounded-2xl mb-5 group">
-                <img
-                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop"
-                  alt="Performance Marketing Analytics Dashboard"
-                  className="w-full h-56 sm:h-64 object-cover rounded-2xl transform group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#131B2A]/60 via-[#131B2A]/10 to-transparent" />
-                {/* Floating stat pill */}
-                <div className="absolute bottom-3 left-3 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur border border-white shadow-md">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#131B2A]">Live · ROAS 6.4x</span>
-                </div>
-              </div>
-
-              {/* Verified Metrics list - each with real image */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/95 border border-slate-100 shadow-sm">
-                  <img
-                    src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=200&fit=crop"
-                    alt="Meta Ads Dashboard"
-                    className="w-12 h-12 rounded-xl object-cover shrink-0 ring-2 ring-[#1877F2]/20"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-[#131B2A]">Meta Ads Mastery</h4>
-                      <span className="w-4 h-4 rounded-full bg-[#1877F2] flex items-center justify-center">
-                        <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
-                        </svg>
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-slate-500 truncate">₹15 Cr+ ad spend · Precision targeting</p>
-                  </div>
-                  <span className="px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[9px] font-extrabold uppercase">Verified</span>
-                </div>
-
-                <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/95 border border-slate-100 shadow-sm">
-                  <img
-                    src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=200&h=200&fit=crop"
-                    alt="Google Ads Analytics"
-                    className="w-12 h-12 rounded-xl object-cover shrink-0 ring-2 ring-orange-500/20"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-[#131B2A]">Google Ads Scale</h4>
-                      <span className="w-4 h-4 rounded-full bg-gradient-to-br from-[#4285F4] via-[#EA4335] to-[#FBBC04] flex items-center justify-center">
-                        <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                          <circle cx="12" cy="12" r="6" />
-                        </svg>
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-slate-500 truncate">High-intent capture · 5X+ avg. ROAS</p>
-                  </div>
-                  <span className="px-2 py-0.5 rounded-full bg-[#EB392F]/10 border border-[#EB392F]/20 text-[#EB392F] text-[9px] font-extrabold uppercase">Active</span>
-                </div>
-              </div>
-            </div>
+            <HeroAnimatedPanel />
           </motion.div>
         </div>
       </div>
@@ -236,6 +328,199 @@ const Hero = () => {
         </a>
       </div>
     </section>
+  );
+};
+
+/* -------- Right side: Premium animated dashboard panel -------- */
+const HeroAnimatedPanel = () => {
+  // Bar chart values - staggered growth
+  const bars = [30, 45, 38, 62, 55, 78, 88];
+
+  return (
+    <div className="relative">
+      {/* Main glass panel */}
+      <div className="relative z-10 p-6 rounded-[32px] glass-premium border border-white/80 shadow-2xl overflow-hidden">
+        {/* Ambient gradient corner */}
+        <div className="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-gradient-to-br from-[#FFB84D]/40 via-[#EB392F]/25 to-transparent blur-2xl pointer-events-none" />
+        <div className="absolute -bottom-16 -left-16 w-56 h-56 rounded-full bg-gradient-to-tr from-[#131B2A]/10 via-[#EB392F]/10 to-transparent blur-2xl pointer-events-none" />
+
+        {/* Top row: Live badge */}
+        <div className="flex items-center justify-between mb-5 relative">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200">
+            <span className="relative flex w-2 h-2">
+              <span className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-70" />
+              <span className="relative rounded-full w-2 h-2 bg-emerald-500" />
+            </span>
+            <span className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-700">
+              Live · Campaigns Running
+            </span>
+          </div>
+          <div className="flex -space-x-1.5">
+            <div className="w-6 h-6 rounded-full bg-white border-2 border-white shadow flex items-center justify-center text-[9px] font-bold text-[#EB392F]">M</div>
+            <div className="w-6 h-6 rounded-full bg-white border-2 border-white shadow flex items-center justify-center text-[9px] font-bold text-[#0866FF]">f</div>
+            <div className="w-6 h-6 rounded-full bg-white border-2 border-white shadow flex items-center justify-center text-[9px] font-bold text-emerald-600">W</div>
+          </div>
+        </div>
+
+        {/* Big counter - ROAS */}
+        <div className="mb-5 relative">
+          <div className="flex items-baseline gap-2">
+            <div className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-slate-500">
+              Blended ROAS · This Month
+            </div>
+          </div>
+          <div className="flex items-baseline gap-2 mt-1">
+            <div
+              className="text-5xl sm:text-6xl font-heading font-black leading-none"
+              style={{
+                background: "linear-gradient(135deg,#FFB84D,#FF8000,#EB392F)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              <AnimatedCounter to={6.4} decimals={1} suffix="x" duration={1.8} />
+            </div>
+            <div className="flex items-center gap-1 pb-1">
+              <TrendingUp className="w-4 h-4 text-emerald-500" />
+              <span className="text-xs font-extrabold text-emerald-600">+38%</span>
+            </div>
+          </div>
+          <div className="text-[11px] text-slate-500 mt-1">
+            Across ₹42L this month · <span className="font-bold text-[#131B2A]">₹2.7 Cr revenue</span>
+          </div>
+        </div>
+
+        {/* Mini bar chart */}
+        <div className="relative rounded-2xl bg-white/70 border border-slate-100 p-4 mb-4 backdrop-blur">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500">
+              Daily Ad Spend (7d)
+            </span>
+            <span className="text-[10px] font-bold text-[#EB392F]">↗ Optimizing</span>
+          </div>
+          <div className="flex items-end gap-1.5 h-16">
+            {bars.map((val, i) => (
+              <motion.div
+                key={i}
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: `${val}%`, opacity: 1 }}
+                transition={{ duration: 1, delay: 0.4 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                className="flex-1 rounded-t-md relative overflow-hidden"
+                style={{
+                  background:
+                    i === bars.length - 1
+                      ? "linear-gradient(180deg,#EB392F,#FF8000)"
+                      : "linear-gradient(180deg,#131B2A,#2a1a2a)",
+                }}
+              >
+                {i === bars.length - 1 && (
+                  <div className="absolute inset-0 bg-white/20 animate-pulse" />
+                )}
+              </motion.div>
+            ))}
+          </div>
+          <div className="flex items-center justify-between mt-2 text-[9px] font-bold uppercase tracking-wider text-slate-400">
+            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+          </div>
+        </div>
+
+        {/* Stat cards row - animated counters */}
+        <div className="grid grid-cols-3 gap-2">
+          <div className="p-3 rounded-2xl bg-white border border-slate-100 shadow-sm">
+            <div className="flex items-center gap-1.5 mb-1">
+              <Target className="w-3 h-3 text-[#EB392F]" />
+              <span className="text-[8px] font-extrabold uppercase tracking-widest text-slate-500">Leads</span>
+            </div>
+            <div className="text-lg font-heading font-black text-[#131B2A] leading-none">
+              <AnimatedCounter to={1284} duration={2} />
+            </div>
+            <div className="text-[9px] text-emerald-600 font-bold mt-0.5">+22%</div>
+          </div>
+          <div className="p-3 rounded-2xl bg-white border border-slate-100 shadow-sm">
+            <div className="flex items-center gap-1.5 mb-1">
+              <Zap className="w-3 h-3 text-[#FF8000]" />
+              <span className="text-[8px] font-extrabold uppercase tracking-widest text-slate-500">CTR</span>
+            </div>
+            <div className="text-lg font-heading font-black leading-none"
+                 style={{ background: "linear-gradient(90deg,#FF8000,#EB392F)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              <AnimatedCounter to={4.8} decimals={1} suffix="%" duration={2} />
+            </div>
+            <div className="text-[9px] text-emerald-600 font-bold mt-0.5">+11%</div>
+          </div>
+          <div className="p-3 rounded-2xl bg-white border border-slate-100 shadow-sm">
+            <div className="flex items-center gap-1.5 mb-1">
+              <Rocket className="w-3 h-3 text-emerald-500" />
+              <span className="text-[8px] font-extrabold uppercase tracking-widest text-slate-500">CAC</span>
+            </div>
+            <div className="text-lg font-heading font-black text-[#131B2A] leading-none">
+              ₹<AnimatedCounter to={187} duration={2} />
+            </div>
+            <div className="text-[9px] text-emerald-600 font-bold mt-0.5">-42%</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Floating notification cards */}
+      <motion.div
+        initial={{ opacity: 0, y: 20, x: -20 }}
+        animate={{ opacity: 1, y: 0, x: 0 }}
+        transition={{ delay: 1.1, duration: 0.6 }}
+        className="hidden md:flex items-center gap-3 absolute -left-8 top-10 z-20 bg-white pl-2 pr-4 py-2 rounded-2xl border border-slate-200 shadow-xl animate-float-med"
+      >
+        <span className="w-8 h-8 rounded-xl flex items-center justify-center"
+              style={{ background: "linear-gradient(135deg,#25D366,#128C7E)" }}>
+          <Activity className="w-4 h-4 text-white" />
+        </span>
+        <div className="leading-tight">
+          <div className="text-[9px] font-bold uppercase tracking-widest text-slate-400">
+            WhatsApp Auto
+          </div>
+          <div className="text-xs font-extrabold text-[#131B2A]">+184 leads today</div>
+        </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20, x: 20 }}
+        animate={{ opacity: 1, y: 0, x: 0 }}
+        transition={{ delay: 1.3, duration: 0.6 }}
+        className="hidden md:flex items-center gap-3 absolute -right-6 bottom-14 z-20 bg-white pl-2 pr-4 py-2 rounded-2xl border border-slate-200 shadow-xl animate-float-slow"
+      >
+        <span className="w-8 h-8 rounded-xl flex items-center justify-center text-white"
+              style={{ background: "linear-gradient(135deg,#FFB84D,#EB392F)" }}>
+          <TrendingUp className="w-4 h-4" />
+        </span>
+        <div className="leading-tight">
+          <div className="text-[9px] font-bold uppercase tracking-widest text-slate-400">
+            Meta Campaign
+          </div>
+          <div className="text-xs font-extrabold text-[#131B2A]">Scaled 3.2x today</div>
+        </div>
+      </motion.div>
+
+      {/* Orbit accent SVG */}
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none opacity-30 -z-10"
+        viewBox="0 0 400 400"
+      >
+        <circle
+          cx="200"
+          cy="200"
+          r="180"
+          fill="none"
+          stroke="url(#orbitGrad)"
+          strokeWidth="1"
+          strokeDasharray="2 6"
+          className="animate-spin-slow"
+          style={{ transformOrigin: "center" }}
+        />
+        <defs>
+          <linearGradient id="orbitGrad" x1="0" y1="0" x2="400" y2="400" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#EB392F" />
+            <stop offset="100%" stopColor="#FFB84D" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
   );
 };
 
