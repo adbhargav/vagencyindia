@@ -84,7 +84,10 @@ const WhyChooseUs = () => {
                   variants={featureVariants}
                   className="flex items-start gap-5 p-5 rounded-2xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:shadow-md transition-all duration-300 group cursor-pointer"
                 >
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-slate-900 flex items-center justify-center text-white group-hover:bg-[#EB392F] transition-colors duration-300">
+                  <div
+                    className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-white shadow-md group-hover:shadow-lg transition-all duration-300"
+                    style={{ background: "linear-gradient(135deg,#131B2A 0%,#2a1a2a 55%,#EB392F 130%)" }}
+                  >
                     <feature.icon className="w-6 h-6" />
                   </div>
                   <div>

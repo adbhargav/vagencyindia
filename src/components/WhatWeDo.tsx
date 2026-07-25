@@ -1,41 +1,95 @@
 import { motion } from "framer-motion";
+import {
+  TrendingUp,
+  Target,
+  BarChart3,
+  DollarSign,
+  Bot,
+  Globe2,
+  Sparkles,
+  Rocket,
+} from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2,
+      staggerChildren: 0.08,
       delayChildren: 0.1,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 60 },
+  hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
+      duration: 0.6,
       ease: "easeOut" as const,
     },
   },
 };
 
+const pillars = [
+  {
+    icon: TrendingUp,
+    title: "Performance Marketing",
+    desc: "Meta & Google ads engineered to hit CAC targets — not vanity metrics.",
+  },
+  {
+    icon: DollarSign,
+    title: "Revenue & Lead Generation",
+    desc: "Full-funnel systems that convert clicks into pipeline, and pipeline into revenue.",
+  },
+  {
+    icon: BarChart3,
+    title: "Data-Driven Decisions",
+    desc: "Every rupee is tracked. Every test is measured. No guesswork, only signal.",
+  },
+  {
+    icon: Target,
+    title: "ROI & ROAS Optimization",
+    desc: "Ruthless creative iteration + audience layering to compound your return.",
+  },
+  {
+    icon: Bot,
+    title: "Automation & AI",
+    desc: "WhatsApp, CRM, and AI-powered creative testing that scales without adding headcount.",
+  },
+  {
+    icon: Globe2,
+    title: "Conversion-Focused Websites",
+    desc: "Sub-2s, pixel-perfect landing pages engineered to convert paid traffic.",
+  },
+  {
+    icon: Sparkles,
+    title: "Meta Ads Expertise",
+    desc: "₹15 Cr+ ad spend managed. CAPI, pixels, and detailed targeting done right.",
+  },
+  {
+    icon: Rocket,
+    title: "Scalable Growth Systems",
+    desc: "Repeatable playbooks that scale from ₹5L to ₹5Cr/month — predictably.",
+  },
+];
+
 const WhatWeDo = () => {
   return (
     <section id="about" className="relative py-24 bg-slate-50 overflow-hidden">
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#EB392F]/5 rounded-full blur-3xl pointer-events-none" />
-      
-      <motion.div 
+      <div className="absolute bottom-0 -left-24 w-[30rem] h-[30rem] bg-[#FF8000]/5 rounded-full blur-3xl pointer-events-none" />
+
+      <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
       >
-        {/* Section Eyebrow & Title */}
+        {/* Section Header */}
         <motion.div variants={itemVariants} className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 shadow-sm mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#EB392F]" />
@@ -43,108 +97,113 @@ const WhatWeDo = () => {
               OUR CORE IDENTITY
             </span>
           </div>
-          <h2 className="font-heading font-extrabold text-[#131B2A] text-4xl sm:text-5xl lg:text-6xl leading-tight tracking-tight">
-            What <span className="serif-italic text-gradient-orange">we do</span> for your growth
+          <h2 className="font-heading font-extrabold text-[#131B2A] text-4xl sm:text-5xl lg:text-6xl leading-tight tracking-tight mb-5">
+            A performance-driven <br className="hidden sm:block" />
+            <span className="serif-italic text-gradient-orange">growth partner</span> — not another agency.
           </h2>
+          <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-sans">
+            We don't sell impressions. We engineer revenue systems. V Agency partners with ambitious founders and
+            marketing leaders to turn paid channels into predictable, profitable growth engines — powered by data,
+            AI and battle-tested playbooks.
+          </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-12 gap-8 items-stretch">
-          {/* Left Column - Big Feature Callout */}
+        {/* Two Column Feature Row */}
+        <div className="grid lg:grid-cols-12 gap-8 items-stretch mb-12">
+          {/* Left Feature Callout */}
           <motion.div
             variants={itemVariants}
-            className="lg:col-span-4 rounded-3xl bg-[#131B2A] text-white p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden shadow-xl"
+            className="lg:col-span-5 rounded-3xl text-white p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden shadow-xl"
+            style={{
+              background:
+                "linear-gradient(135deg,#131B2A 0%,#1a1225 50%,#2a1520 100%)",
+            }}
           >
-            <div className="absolute -right-10 -bottom-10 w-48 h-48 rounded-full bg-[#EB392F]/20 blur-2xl pointer-events-none" />
-            
-            <div>
-              <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#EB392F] mb-4 block">
-                01 / PERFORMANCE
+            <div className="absolute -right-10 -bottom-10 w-56 h-56 rounded-full bg-[#EB392F]/25 blur-3xl pointer-events-none" />
+            <div className="absolute -left-16 -top-16 w-48 h-48 rounded-full bg-[#FF8000]/15 blur-3xl pointer-events-none" />
+
+            <div className="relative z-10">
+              <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#FF8000] mb-4 block">
+                01 / OUR MISSION
               </span>
-              <h3 className="big-num text-5xl sm:text-6xl text-white mb-6">
-                What <br />
-                <span className="text-[#EB392F]">we</span> <br />
-                do<span className="text-gradient-orange">?</span>
+              <h3 className="big-num text-5xl sm:text-6xl text-white mb-6 leading-[1]">
+                We build <br />
+                <span className="text-gradient-orange">growth engines</span>, <br />
+                not campaigns.
               </h3>
+              <p className="text-slate-300 text-sm sm:text-base font-sans leading-relaxed">
+                Backed by ₹15 Cr+ in managed ad spend across 100+ brands, we bring a numbers-first approach to
+                D2C, real estate, EdTech, SaaS and high-ticket service businesses. Our team obsesses over ROAS,
+                CAC, LTV and pipeline velocity — so you can obsess over building a great business.
+              </p>
             </div>
 
-            <div className="pt-8 border-t border-slate-800">
-              <p className="text-slate-400 text-sm font-sans leading-relaxed">
-                Full-scale growth agency scaling D2C, E-commerce, and high-ticket service brands with data-driven precision.
-              </p>
+            <div className="relative z-10 pt-8 mt-8 border-t border-white/10 flex items-center gap-6">
+              <div>
+                <div className="big-num text-3xl text-white">₹15Cr+</div>
+                <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Ad Spend</div>
+              </div>
+              <div className="w-px h-10 bg-white/10" />
+              <div>
+                <div className="big-num text-3xl text-gradient-orange">5X+</div>
+                <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Avg. ROAS</div>
+              </div>
+              <div className="w-px h-10 bg-white/10" />
+              <div>
+                <div className="big-num text-3xl text-white">100+</div>
+                <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Brands</div>
+              </div>
             </div>
           </motion.div>
 
-          {/* Center Column - Digital */}
-          <motion.div
-            variants={itemVariants}
-            className="lg:col-span-4 rounded-3xl bg-white border border-slate-200/80 p-8 sm:p-10 flex flex-col justify-between hover-lift shadow-sm relative group"
-          >
-            <div>
-              <div className="w-12 h-12 rounded-2xl bg-[#EB392F]/10 flex items-center justify-center text-[#EB392F] mb-6 font-bold text-lg">
-                02
+          {/* Right - Pillars 4-grid (top 4) */}
+          <motion.div variants={itemVariants} className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {pillars.slice(0, 4).map((p) => (
+              <div
+                key={p.title}
+                className="group bg-white border border-slate-200/80 rounded-2xl p-6 hover:shadow-md hover:border-[#EB392F]/40 hover:-translate-y-1 transition-all duration-300"
+              >
+                <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center text-white shadow-sm mb-4"
+                  style={{
+                    background:
+                      "linear-gradient(135deg,#131B2A 0%,#2a1a2a 55%,#EB392F 130%)",
+                  }}
+                >
+                  <p.icon className="w-5 h-5" />
+                </div>
+                <h4 className="font-heading font-bold text-lg text-[#131B2A] mb-1.5 group-hover:text-[#EB392F] transition-colors">
+                  {p.title}
+                </h4>
+                <p className="text-sm text-slate-600 leading-relaxed font-sans">{p.desc}</p>
               </div>
-              <h3 className="font-heading font-bold text-3xl text-[#131B2A] mb-3">Digital.</h3>
-              <p className="serif-italic text-lg text-[#EB392F] mb-4">
-                We create super-rich experiences online!
-              </p>
-              <p className="text-slate-600 text-sm leading-relaxed mb-6 font-sans">
-                V Agency is a full-scale Digital Marketing Agency based out of India. 
-                We mix our years of experience and knowledge to create solutions for 
-                our clients which are not only performance driven, but also creative. 
-                We are running kick-ass digital campaigns for our clients, even as you 
-                read this!
-              </p>
-            </div>
-
-            <a
-              href="#about"
-              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#131B2A] hover:text-[#EB392F] transition-colors group/link"
-            >
-              <span>ABOUT US</span>
-              <span className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center group-hover/link:bg-[#EB392F] group-hover/link:text-white transition-all">
-                <svg className="w-3 h-3 group-hover/link:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </span>
-            </a>
-          </motion.div>
-
-          {/* Right Column - And More Digital */}
-          <motion.div
-            variants={itemVariants}
-            className="lg:col-span-4 rounded-3xl bg-white border border-slate-200/80 p-8 sm:p-10 flex flex-col justify-between hover-lift shadow-sm relative group"
-          >
-            <div>
-              <div className="w-12 h-12 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-500 mb-6 font-bold text-lg">
-                03
-              </div>
-              <h3 className="font-heading font-bold text-3xl text-[#131B2A] mb-3">
-                And More Digital.
-              </h3>
-              <p className="serif-italic text-lg text-orange-600 mb-4">
-                Marketing brands with care
-              </p>
-              <p className="text-slate-600 text-sm leading-relaxed mb-6 font-sans">
-                What is marketing if it is not performance driven? We create digital 
-                experiences which stick with audiences and also reach the end objective. 
-                Trust us with making your brand visible and desired, with highly focused 
-                performance marketing.
-              </p>
-            </div>
-
-            <a
-              href="#services"
-              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#131B2A] hover:text-[#EB392F] transition-colors group/link"
-            >
-              <span>OUR SERVICES</span>
-              <span className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center group-hover/link:bg-[#EB392F] group-hover/link:text-white transition-all">
-                <svg className="w-3 h-3 group-hover/link:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </span>
-            </a>
+            ))}
           </motion.div>
         </div>
+
+        {/* Bottom Row - Pillars 5-8 */}
+        <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {pillars.slice(4).map((p) => (
+            <div
+              key={p.title}
+              className="group bg-white border border-slate-200/80 rounded-2xl p-6 hover:shadow-md hover:border-[#EB392F]/40 hover:-translate-y-1 transition-all duration-300"
+            >
+              <div
+                className="w-11 h-11 rounded-xl flex items-center justify-center text-white shadow-sm mb-4"
+                style={{
+                  background:
+                    "linear-gradient(135deg,#FF8000 0%,#EB392F 100%)",
+                }}
+              >
+                <p.icon className="w-5 h-5" />
+              </div>
+              <h4 className="font-heading font-bold text-lg text-[#131B2A] mb-1.5 group-hover:text-[#EB392F] transition-colors">
+                {p.title}
+              </h4>
+              <p className="text-sm text-slate-600 leading-relaxed font-sans">{p.desc}</p>
+            </div>
+          ))}
+        </motion.div>
       </motion.div>
     </section>
   );

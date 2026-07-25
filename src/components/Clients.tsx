@@ -95,15 +95,23 @@ const row2 = [
 ];
 
 const MarqueeItem = ({ logo, industry }: { logo: string, industry: string }) => (
-  <div className="flex items-center gap-6 sm:gap-10 mx-6 sm:mx-10">
-    <div className="h-14 sm:h-16 w-28 sm:w-36 flex items-center justify-center">
-      <img src={logo} alt="Client logo" className="max-h-full max-w-full object-contain mix-blend-multiply" loading="lazy" />
+  <div className="mx-3 sm:mx-4 shrink-0">
+    <div className="flex flex-col items-center justify-center gap-2 h-24 sm:h-28 w-40 sm:w-52 px-5 py-3 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md hover:border-[#EB392F]/40 hover:-translate-y-0.5 transition-all duration-300">
+      <div className="h-10 sm:h-12 w-full flex items-center justify-center">
+        <img
+          src={logo}
+          alt="Client logo"
+          className="max-h-full max-w-[85%] object-contain grayscale hover:grayscale-0 transition-all duration-300"
+          loading="lazy"
+        />
+      </div>
+      <div className="flex items-center gap-2">
+        <div className="w-1 h-1 rounded-full bg-[#EB392F]" />
+        <span className="text-[9px] sm:text-[10px] tracking-[0.2em] uppercase font-bold text-slate-500 whitespace-nowrap">
+          {industry}
+        </span>
+      </div>
     </div>
-    <div className="w-[1px] h-8 sm:h-10 bg-slate-200"></div>
-    <span className="text-[10px] sm:text-xs tracking-[0.2em] uppercase font-bold text-slate-400 whitespace-nowrap">
-      {industry}
-    </span>
-    <div className="w-1.5 h-1.5 rounded-full bg-[#EB392F]"></div>
   </div>
 );
 

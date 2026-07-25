@@ -4,6 +4,7 @@ import {
   Clapperboard,
   Award,
   Zap,
+  Code2,
   X
 } from "lucide-react";
 import { useState } from "react";
@@ -133,6 +134,38 @@ const services = [
       label: "Messages Automated Daily"
     }
   },
+  {
+    id: "05",
+    title: "Web Development",
+    subtitle: "Conversion-focused websites that sell 24×7.",
+    description: "Blazing-fast, SEO-optimized, conversion-focused websites built for scale. From high-converting landing pages to full-stack e-commerce and custom web apps, we engineer digital experiences that turn visitors into revenue. Every pixel, every load-time, every CTA — engineered for one thing: conversions.",
+    icon: Code2,
+    image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=600&fit=crop",
+    features: [
+      "High-Converting Landing Pages",
+      "E-Commerce Websites (Shopify / Custom)",
+      "Full-Stack Web Applications",
+      "SEO-Optimized & Blazing Fast (Core Web Vitals)",
+      "Meta Pixel + CAPI + GA4 Integration",
+      "Ongoing Maintenance & Optimization"
+    ],
+    benefits: [
+      "Sub-2s load times that lift conversion",
+      "Pixel-perfect, mobile-first UX",
+      "Built-in tracking so every ₹ is measurable",
+      "Scales seamlessly with your ad traffic"
+    ],
+    process: [
+      "Discovery - Map audience, goals, funnel",
+      "Design - High-converting UX + brand-aligned UI",
+      "Development - Fast, secure, SEO-ready build",
+      "Launch & Optimize - Ship, measure, iterate"
+    ],
+    metrics: {
+      experience: "200+",
+      label: "Websites Shipped"
+    }
+  },
 ];
 
 const containerVariants: Variants = {
@@ -228,10 +261,12 @@ const Services = () => {
 
             <a
               href="#contact"
-              className="group inline-flex items-center gap-3 pl-6 pr-2 py-3 rounded-full bg-[#131B2A] text-white text-xs font-bold uppercase tracking-wider hover:bg-slate-800 transition-all shadow-md"
+              className="group inline-flex items-center gap-3 pl-6 pr-2 py-3 rounded-full text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md"
+              style={{ background: "linear-gradient(90deg,#131B2A 0%,#2a1a2a 100%)" }}
             >
               <span>Discuss Your Project</span>
-              <span className="w-7 h-7 rounded-full bg-[#EB392F] flex items-center justify-center text-white transition-transform group-hover:rotate-45">
+              <span className="w-7 h-7 rounded-full flex items-center justify-center text-white transition-transform group-hover:rotate-45"
+                    style={{ background: "linear-gradient(135deg,#FF8000,#EB392F)" }}>
                 <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
@@ -258,7 +293,10 @@ const Services = () => {
                 >
                   <div>
                     <div className="flex justify-between items-center mb-6">
-                      <div className="w-12 h-12 rounded-2xl bg-slate-900 flex items-center justify-center text-white group-hover:bg-[#EB392F] transition-colors duration-300 shadow-sm">
+                      <div
+                        className="w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-md group-hover:shadow-lg transition-all duration-300"
+                        style={{ background: "linear-gradient(135deg,#131B2A 0%,#2a1a2a 60%,#EB392F 130%)" }}
+                      >
                         <service.icon className="w-6 h-6" />
                       </div>
                       <span className="big-num text-3xl text-slate-200 group-hover:text-[#EB392F]/20 transition-colors">

@@ -100,7 +100,10 @@ const Industries = () => {
                   }}
                   className="bg-white border border-slate-200/80 rounded-2xl p-5 flex flex-col items-center justify-center text-center gap-3 cursor-pointer shadow-sm hover:shadow-md hover:border-[#EB392F]/40 transition-all duration-300 group"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-slate-900 flex items-center justify-center text-white group-hover:bg-[#EB392F] transition-colors duration-300">
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center text-white shadow-md transition-all duration-300 group-hover:shadow-lg group-hover:scale-105"
+                    style={{ background: "linear-gradient(135deg,#131B2A 0%,#2a1a2a 55%,#EB392F 130%)" }}
+                  >
                     <industry.icon className="w-6 h-6" />
                   </div>
                   <span className="font-heading font-bold text-[#131B2A] text-xs group-hover:text-[#EB392F] transition-colors">

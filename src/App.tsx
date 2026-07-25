@@ -50,7 +50,7 @@ const App = () => {
       {isLoading && (
         <Logo 
           onLoadComplete={handleLoadComplete}
-          loadingDuration={2500}
+          loadingDuration={1100}
         />
       )}
 
