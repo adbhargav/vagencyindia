@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import vLogo from '@/assets/v-logo.png';
 
 interface LogoProps {
   onLoadComplete?: () => void;
@@ -38,64 +39,39 @@ const Logo: React.FC<LogoProps> = ({
       }`}
     >
       <style>{`
-        @keyframes va_draw {
-          0%   { stroke-dashoffset: 400; opacity: 0; }
-          40%  { opacity: 1; }
-          100% { stroke-dashoffset: 0; opacity: 1; }
-        }
-        @keyframes va_fill_in {
-          0%   { fill-opacity: 0; }
-          70%  { fill-opacity: 0; }
-          100% { fill-opacity: 1; }
-        }
         @keyframes va_bar {
           0%   { transform: scaleX(0); }
           100% { transform: scaleX(1); }
         }
-        @keyframes va_pulse {
-          0%,100% { transform: scale(0.9); opacity:.6; }
-          50%     { transform: scale(1.1); opacity:1; }
+        @keyframes va_logo_in {
+          0%   { opacity: 0; transform: scale(0.85) translateY(8px); }
+          100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-        .va-draw { stroke-dasharray: 400; animation: va_draw 0.9s cubic-bezier(.65,.05,.36,1) forwards; }
-        .va-fill { fill-opacity: 0; animation: va_fill_in 1s ease-out forwards; }
+        @keyframes va_glow {
+          0%,100% { opacity: .35; transform: scale(0.95); }
+          50%     { opacity: .7; transform: scale(1.08); }
+        }
+        .va-logo-in { animation: va_logo_in 0.35s cubic-bezier(.22,1,.36,1) forwards; }
+        .va-glow { animation: va_glow 1.6s ease-in-out infinite; }
         .va-bar  { transform-origin: left center; animation: va_bar 0.9s cubic-bezier(.65,.05,.36,1) 0.15s forwards; }
-        .va-pulse { animation: va_pulse 0.9s ease-in-out infinite; }
       `}</style>
 
       <div className="flex flex-col items-center gap-6">
-        {/* SVG Motion Graphic V */}
+        {/* Real brand logo */}
         <div className="relative">
-          <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
-            <defs>
-              <linearGradient id="vGrad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#FFB84D" />
-                <stop offset="50%" stopColor="#FF8000" />
-                <stop offset="100%" stopColor="#EB392F" />
-              </linearGradient>
-            </defs>
-            {/* Outlined V (draw animation) */}
-            <path
-              d="M20 22 L60 96 L100 22"
-              stroke="url(#vGrad)"
-              strokeWidth="10"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="none"
-              className="va-draw"
-            />
-            {/* Filled V (fades in after draw) */}
-            <path
-              d="M20 22 L60 96 L100 22"
-              stroke="url(#vGrad)"
-              strokeWidth="10"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="none"
-              className="va-fill"
-            />
-            {/* Accent pulsing dot */}
-            <circle cx="60" cy="105" r="4" fill="#EB392F" className="va-pulse" />
-          </svg>
+          {/* Soft brand glow behind the logo */}
+          <div
+            className="absolute inset-0 rounded-full blur-2xl va-glow pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(circle, rgba(255,128,0,0.35) 0%, rgba(235,57,47,0.2) 50%, transparent 70%)',
+            }}
+          />
+          <img
+            src={vLogo}
+            alt="V Agency"
+            className="relative w-44 sm:w-52 h-auto object-contain va-logo-in"
+          />
         </div>
 
         {/* Progress bar */}
@@ -107,10 +83,6 @@ const Logo: React.FC<LogoProps> = ({
             }}
           />
         </div>
-
-        <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-slate-500">
-          V AGENCY
-        </span>
       </div>
     </div>
   );

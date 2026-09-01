@@ -30,23 +30,18 @@ const ScrollToTop = () => {
 };
 
 const App = () => {
-  // Check if user has visited before
-  const hasVisited = localStorage.getItem("hasVisitedBefore");
-  
-  // Only show loading if this is the first visit
-  const [isLoading, setIsLoading] = useState(!hasVisited);
+  // Show the preloader on every page load / refresh
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleLoadComplete = () => {
     setTimeout(() => {
       setIsLoading(false);
-      // Mark that user has visited
-      localStorage.setItem("hasVisitedBefore", "true");
     }, 200);
   };
 
   return (
     <>
-      {/* Loader - only shows on first visit */}
+      {/* Loader - shows on every page load */}
       {isLoading && (
         <Logo 
           onLoadComplete={handleLoadComplete}

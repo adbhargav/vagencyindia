@@ -47,7 +47,7 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-3 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? "py-2" : "py-4"
       }`}
     >
@@ -64,7 +64,7 @@ const Header = () => {
             <img
               src="https://i.ibb.co/8nVFNhw8/vl.png"
               alt="V Agency"
-              className="h-16 sm:h-20 w-auto object-contain transition-transform hover:scale-105"
+              className="h-14 sm:h-16 -my-2 w-auto object-contain transition-transform hover:scale-105"
             />
           </Link>
 
@@ -108,9 +108,10 @@ const Header = () => {
           </div>
 
           {/* Mobile Menu Button */}
+          <div className="lg:hidden flex items-center gap-2">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-full bg-slate-100 p-2"
+            className="relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-full bg-slate-100 p-2"
             aria-label="Toggle menu"
           >
             <motion.span
@@ -130,6 +131,7 @@ const Header = () => {
               className="w-5 h-0.5 bg-[#131B2A] rounded-full origin-center transition-all"
             />
           </button>
+          </div>
         </div>
       </div>
 
@@ -166,7 +168,7 @@ const Header = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="pt-2 mt-2 border-t border-slate-100"
+                className="pt-2 mt-2 border-t border-slate-100 flex flex-col gap-2"
               >
                 <Link
                   to="/onboard"

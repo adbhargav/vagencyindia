@@ -57,9 +57,32 @@ const Contact = () => {
                 Ready for a website that <span className="serif-italic text-gradient-orange font-normal">actually</span> generates leads?
               </h2>
 
-              <p className="text-slate-300 text-lg leading-relaxed mb-12 max-w-lg font-sans">
+              <p className="text-slate-300 text-lg leading-relaxed mb-8 max-w-lg font-sans">
                 Book a free strategy call and we'll map a conversion-focused digital presence tailored to your goals.
               </p>
+
+              {/* Automation Payment card */}
+              <a
+                href="https://pay.vagencyindia.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block max-w-md p-5 rounded-2xl bg-gradient-to-br from-[#FF8000] to-[#EB392F] text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all mb-12"
+              >
+                <div className="text-[9px] sm:text-[10px] uppercase tracking-[0.18em] font-bold text-white/80 mb-2">
+                  WhatsApp • Instagram • Website Automation
+                </div>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="font-heading font-extrabold text-lg sm:text-xl leading-tight">
+                    💳 Automation Payment
+                  </span>
+                  <span className="w-9 h-9 shrink-0 rounded-full bg-white/20 flex items-center justify-center transition-transform duration-300 group-hover:rotate-45">
+                    <ArrowUpRight className="w-4 h-4" />
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-white/85 leading-relaxed mt-2">
+                  Pay your automation setup, subscription, or renewal securely.
+                </p>
+              </a>
 
               <div className="flex flex-col sm:flex-row sm:items-center gap-6 pt-8 border-t border-white/10">
                 <div className="flex items-center gap-4">

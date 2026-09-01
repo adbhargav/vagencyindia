@@ -7,6 +7,7 @@ import WhyChooseUs from "@/components/WhyChooseUs";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import PopupForm from "@/components/PopupForm";
+import AutomationPayment from "@/components/AutomationPayment";
 import Clients from "@/components/Clients";
 import Reviews from "@/components/Reviews";
 
@@ -19,6 +20,7 @@ const Index = () => {
       <WhatWeDo />
       <Services />
       <WhyChooseUs />
+      <AutomationPayment />
       <Clients />
       <Reviews />
           <Contact />

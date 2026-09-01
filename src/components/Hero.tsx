@@ -75,7 +75,7 @@ const MetaLogo = ({ className = "w-5 h-5" }: { className?: string }) => (
 /* -------- Hero -------- */
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden hero-mesh">
+    <section className="relative min-h-screen flex items-center pt-28 sm:pt-32 lg:pt-36 pb-16 overflow-hidden hero-mesh">
       {/* Background Micro-Graphics */}
       <div className="absolute inset-0 premium-grid-bg opacity-40 pointer-events-none" />
       {/* Ambient blobs */}
@@ -122,7 +122,7 @@ const Hero = () => {
         ))}
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 relative z-10 w-full">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           {/* Left Editorial Content */}
           <motion.div

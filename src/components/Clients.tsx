@@ -94,14 +94,54 @@ const row2 = [
   { id: 44, logo: img44, industry: "ENTERPRISE" },
 ];
 
-const MarqueeItem = ({ logo, industry }: { logo: string, industry: string }) => (
+/**
+ * Detects whether a logo image has a dark baked-in background by sampling
+ * its corner pixels. Dark-background logos get inverted so that, combined
+ * with mix-blend-multiply, their background melts into the white card.
+ */
+const useLogoInvert = () => {
+  const [invert, setInvert] = React.useState(false);
+
+  const check = (img: HTMLImageElement | null) => {
+    if (!img || !img.complete || img.naturalWidth === 0) return;
+    try {
+      const c = document.createElement("canvas");
+      c.width = c.height = 10;
+      const ctx = c.getContext("2d");
+      if (!ctx) return;
+      ctx.drawImage(img, 0, 0, 10, 10);
+      const corners = [[0, 0], [9, 0], [0, 9], [9, 9]];
+      let lum = 0;
+      for (const [x, y] of corners) {
+        const [r, g, b] = ctx.getImageData(x, y, 1, 1).data;
+        lum += 0.299 * r + 0.587 * g + 0.114 * b;
+      }
+      if (lum / 4 < 100) setInvert(true);
+    } catch {
+      /* canvas unavailable — leave as-is */
+    }
+  };
+
+  return { invert, check };
+};
+
+const MarqueeItem = ({ logo, industry }: { logo: string, industry: string }) => {
+  const { invert, check } = useLogoInvert();
+
+  return (
   <div className="mx-3 sm:mx-4 shrink-0">
-    <div className="flex flex-col items-center justify-center gap-2 h-24 sm:h-28 w-40 sm:w-52 px-5 py-3 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md hover:border-[#EB392F]/40 hover:-translate-y-0.5 transition-all duration-300">
+    <div className="group flex flex-col items-center justify-center gap-2 h-24 sm:h-28 w-40 sm:w-52 px-5 py-3 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md hover:border-[#EB392F]/40 hover:-translate-y-0.5 transition-all duration-300">
       <div className="h-10 sm:h-12 w-full flex items-center justify-center">
         <img
+          ref={check}
+          onLoad={(e) => check(e.currentTarget)}
           src={logo}
           alt="Client logo"
-          className="max-h-full max-w-[85%] object-contain grayscale hover:grayscale-0 transition-all duration-300"
+          className={`max-h-full max-w-[85%] object-contain mix-blend-multiply transition-all duration-300 ${
+            invert
+              ? "[filter:invert(1)_grayscale(1)] group-hover:[filter:invert(1)]"
+              : "grayscale group-hover:grayscale-0"
+          }`}
           loading="lazy"
         />
       </div>
@@ -113,7 +153,8 @@ const MarqueeItem = ({ logo, industry }: { logo: string, industry: string }) => 
       </div>
     </div>
   </div>
-);
+  );
+};
 
 const Clients = () => {
   return (

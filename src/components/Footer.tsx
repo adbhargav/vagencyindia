@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Instagram, Facebook, ArrowUpRight } from "lucide-react";
+import vLogo from "@/assets/v-logo.png";
 
 const Footer = () => {
   return (
@@ -16,13 +17,12 @@ const Footer = () => {
           <div className="lg:col-span-5 pr-0 lg:pr-12">
             {/* Logo */}
             <div className="flex items-center gap-4 mb-10">
-              <div className="w-10 h-10 relative flex items-center justify-center">
-                {/* V Logo icon (Simplified CSS representation) */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#EB392F] to-[#FF8000] transform skew-x-[-15deg] rounded-sm opacity-20 blur-sm"></div>
-                <div className="relative flex">
-                  <div className="w-2.5 h-6 bg-gradient-to-b from-white to-slate-400 transform skew-x-[-15deg] origin-bottom-right rounded-sm"></div>
-                  <div className="w-2.5 h-8 bg-gradient-to-b from-[#EB392F] to-[#FF8000] transform skew-x-[15deg] origin-bottom-left -ml-1 rounded-sm"></div>
-                </div>
+              <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center shadow-lg shadow-black/20 overflow-hidden">
+                <img
+                  src={vLogo}
+                  alt="V Agency"
+                  className="w-12 h-12 object-contain"
+                />
               </div>
               <div>
                 <h3 className="text-white font-bold text-xl leading-none mb-1 tracking-tight">V Agency</h3>
@@ -96,11 +96,41 @@ const Footer = () => {
             </h4>
             
             <div className="space-y-4 mb-10">
+              <div>
+                <h5 className="text-white text-lg font-bold tracking-tight">Putta Vishnu Tharun</h5>
+                <p className="text-slate-400 text-sm">Founder and Director</p>
+              </div>
               <a href="tel:+919392978774" className="flex items-center gap-4 group">
                 <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 group-hover:text-white group-hover:bg-white/10 transition-all">
                   <Phone className="w-4 h-4" />
                 </div>
                 <span className="text-slate-200 text-sm font-medium group-hover:text-white transition-colors">+91 93929 78774</span>
+              </a>
+            </div>
+
+            <h4 className="text-[10px] uppercase tracking-widest font-bold text-slate-500 mb-6">
+              Automation Payment
+            </h4>
+
+            <div className="mb-10">
+              <a
+                href="https://pay.vagencyindia.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block max-w-[280px] p-5 rounded-2xl bg-gradient-to-br from-[#FF8000] to-[#EB392F] text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
+              >
+                <div className="text-[9px] uppercase tracking-[0.18em] font-bold text-white/80 mb-2">
+                  WhatsApp • Instagram • Website Automation
+                </div>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="font-heading font-extrabold text-base leading-tight">Automation Payment</span>
+                  <span className="w-8 h-8 shrink-0 rounded-full bg-white/20 flex items-center justify-center transition-transform duration-300 group-hover:rotate-45">
+                    <ArrowUpRight className="w-4 h-4" />
+                  </span>
+                </div>
+                <p className="text-[11px] text-white/85 leading-relaxed mt-2">
+                  Pay your automation setup, subscription, or renewal securely.
+                </p>
               </a>
             </div>
 
